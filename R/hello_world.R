@@ -11,7 +11,9 @@
 #' @export
 #' 
 hello_world <- function (n, verbose = TRUE) {
-  for (i in 1:n)
-    cat("Hello world!\n")
+  if (verbose) {
+    for (i in 1:n)
+      cat("Hello world!\n")
+  }
   return(rep("Hello world!",n))
 }
