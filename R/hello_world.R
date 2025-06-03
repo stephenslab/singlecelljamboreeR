@@ -1,12 +1,14 @@
-#' @title Add title here.
+#' @title Print Hello World
 #'
-#' @description Add description here.
+#' @description Prints a \dQuote{Hello World} message to the console
+#'   and provides the same message in the output.
 #'
-#' @param n Describe this argument here.
+#' @param n The number of times to say \dQuote{Hello World!}
 #'
-#' @param verbose Describe this argument here.
+#' @param verbose If \code{verbose = TRUE}, print the messages to the
+#'     console.
 #' 
-#' @return Describe return value here.
+#' @return A character vector containing the message.
 #' 
 #' @export
 #' 

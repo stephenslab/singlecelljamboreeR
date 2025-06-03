@@ -2,18 +2,20 @@
 % Please edit documentation in R/hello_world.R
 \name{hello_world}
 \alias{hello_world}
-\title{Add title here.}
+\title{Print Hello World}
 \usage{
 hello_world(n, verbose = TRUE)
 }
 \arguments{
-\item{n}{Describe this argument here.}
+\item{n}{The number of times to say \dQuote{Hello World!}}
 
-\item{verbose}{Describe this argument here.}
+\item{verbose}{If \code{verbose = TRUE}, print the messages to the
+console.}
 }
 \value{
-Describe return value here.
+A character vector containing the message.
 }
 \description{
-Add description here.
+Prints a \dQuote{Hello World} message to the console
+  and provides the same message in the output.
 }
