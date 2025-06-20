@@ -16,7 +16,7 @@
 rank_transform_effects_matrix <- function (effects_matrix)
   apply(effects_matrix,2,rank_random_tie)
 
-# This is a helper function used by quantile_transform_effects_matrix.
+# This is a helper function used by rank_transform_effects_matrix.
 rank_random_tie <- function (x) {
   n <- length(x)
   return((rank(-x,ties.method = "random",na.last = "keep") - 1)/(n-1))
