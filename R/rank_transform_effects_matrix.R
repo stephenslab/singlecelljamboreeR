@@ -1,14 +1,24 @@
 #' @title Rank-Transform Effects Matrix
 #'
-#' @description For n x m effects matrix X, this function transforms
-#'   each column of X so that the values lie between 0 and 1, with 0
+#' @description With \code{compare_cols = FALSE}, transforms each
+#'   column of X so that the values lie between 0 and 1, with 0
 #'   being the lowest rank, and 1 being the highest. By
-#'   "highest rank", we mean that the entry has the largest (most
-#'   positive) value amongst all the entries in the column.
+#'   \dQuote{highest rank}, we mean that the entry has the largest
+#'   (most positive) value amongst all the entries in the
+#'   column. With \code{compare_cols = TRUE}, the \dQuote{least
+#'   extreme} relative ranks are obtained by comparing to the ranks
+#'   of the other columns.  This results in values between -1 (when
+#'   the rank is 0 in the current column and 1 in all other columns)
+#'   and +1 (when the rank is 1 in the current column and 0 in all
+#'   other columns). When the current column has identical rank to
+#'   one or more columns, the \dQuote{least extreme} relative rank
+#'   is zero.
 #' 
 #' @param effects_matrix The n x m matrix X.
 #'
-#' @param compare_cols Explain here what \code{compare_cols} = TRUE does.
+#' @param compare_cols When \code{compare_cols = TRUE}, instead of
+#'   returning the ranks, the \dQuote{least extreme} relative ranks
+#'   are returned.
 #'
 #' @return The n x m rank-transformed effects matrix.
 #' 
