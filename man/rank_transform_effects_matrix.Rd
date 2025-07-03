@@ -4,7 +4,11 @@
 \alias{rank_transform_effects_matrix}
 \title{Rank-Transform Effects Matrix}
 \usage{
-rank_transform_effects_matrix(effects_matrix, compare_cols = FALSE)
+rank_transform_effects_matrix(
+  effects_matrix,
+  compare_cols = FALSE,
+  compare_dims = seq(1, ncol(effects_matrix))
+)
 }
 \arguments{
 \item{effects_matrix}{The n x m matrix X.}
@@ -12,6 +16,8 @@ rank_transform_effects_matrix(effects_matrix, compare_cols = FALSE)
 \item{compare_cols}{When \code{compare_cols = TRUE}, instead of
 returning the ranks, the \dQuote{least extreme} relative ranks
 are returned.}
+
+\item{compare_dims}{Describe compare_dims argument here.}
 }
 \value{
 The n x m rank-transformed effects matrix.

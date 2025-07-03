@@ -1,8 +1,8 @@
 Encoding: UTF-8
 Type: Package
 Package: singlecelljamboreeR
-Version: 0.1-7
-Date: 2025-06-20
+Version: 0.1-8
+Date: 2025-07-02
 Title: Data Visualizations and Other Methods for Analyzing Single-Cell Data
 Authors@R: c(person("Peter","Carbonetto",role=c("aut","cre"),
                     email="peter.carbonetto@gmail.com"),
@@ -13,6 +13,13 @@ Description: Implements methods and data visualizations supporting
     statistical analyses of single-cell data (and primarily single-cell 
     RNA-seq data).
 License: MIT + file LICENSE
+Imports:
+    Matrix,
+    pathways,
+    susieR
+Remotes:
+    stephenslab/susieR,
+    stephenslab/pathways
 LazyData: true
 NeedsCompilation: no
 RoxygenNote: 7.3.1

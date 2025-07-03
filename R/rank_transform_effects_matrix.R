@@ -20,21 +20,24 @@
 #'   returning the ranks, the \dQuote{least extreme} relative ranks
 #'   are returned.
 #'
+#' @param compare_dims Describe compare_dims argument here.
+#'
 #' @return The n x m rank-transformed effects matrix.
 #' 
 #' @export
 #'
-rank_transform_effects_matrix <- function (effects_matrix,
-                                           compare_cols = FALSE) {
-  effects_matrix <- apply(effects_matrix,2,rank_random_tie)
+rank_transform_effects_matrix <-
+  function (effects_matrix,
+            compare_cols = FALSE,
+            compare_dims = seq(1,ncol(effects_matrix))) {
+  # effects_matrix <- apply(effects_matrix,2,rank_random_tie)
   if (compare_cols) {
     out <- effects_matrix
-    m <- ncol(effects_matrix)
-    for (i in 1:m) {
+    for (i in colnames(effects_matrix)) {
       x <- effects_matrix[,i]
-      p <- x - apply(effects_matrix[,-i,drop = FALSE],1,max)  
-      n <- x - apply(effects_matrix[,-i,drop = FALSE],1,min)
-      out[,i] <- ifelse(abs(p) < abs(n),p,n)
+      j <- setdiff(compare_dims,i)
+      out[,i] <- apply(x - effects_matrix[,j],1,
+                       function (x) x[which.min(abs(x))])
     }
   } else {
     out <- effects_matrix
