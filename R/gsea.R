@@ -26,7 +26,7 @@ perform_gsea <- function (gene_signals, gene_sets,
   if (is.null(colnames(gene_signals)))
     colnames(gene_signals) <- paste0("k",1:k)
 
-  # Verify and process the "gene_sets" nput.
+  # Verify and process the "gene_sets" input.
   if (!((is.matrix(x) & is.numeric(x)) | inherits(x,"dgCMatrix")))
     stop("Input argument \"gene_sets\" should be a matrix ",
          "(or a sparse matrix)")
