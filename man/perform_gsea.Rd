@@ -7,8 +7,10 @@
 perform_gsea(
   gene_signals,
   gene_sets,
+  gene_set_info = NULL,
   min_size = 10,
   max_size = 400,
+  top_genes = 10,
   L = 10,
   coverage = 0.95,
   max_iter = 100,
@@ -21,9 +23,13 @@ perform_gsea(
 
 \item{gene_sets}{rows = genes, columns = gene sets}
 
+\item{gene_set_info}{Describe the gene_set_info input here.}
+
 \item{min_size}{Describe the min_size input here.}
 
 \item{max_size}{Describe the max_size input here.}
+
+\item{top_genes}{Describe the top_genes argument here.}
 
 \item{L}{Describe the L argument here.}
 
