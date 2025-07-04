@@ -4,12 +4,36 @@
 \alias{perform_gsea}
 \title{Add Title Here}
 \usage{
-perform_gsea(gene_signals, gene_sets, min_size = 10, max_size = 400)
+perform_gsea(
+  gene_signals,
+  gene_sets,
+  min_size = 10,
+  max_size = 400,
+  L = 10,
+  coverage = 0.95,
+  max_iter = 100,
+  tol = 0.001,
+  verbose = TRUE
+)
 }
 \arguments{
-\item{gene_signals}{Describe the gene_signals input here.}
+\item{gene_signals}{rows = genes, columns = signals}
 
-\item{gene_sets}{}
+\item{gene_sets}{rows = genes, columns = gene sets}
+
+\item{min_size}{Describe the min_size input here.}
+
+\item{max_size}{Describe the max_size input here.}
+
+\item{L}{Describe the L argument here.}
+
+\item{coverage}{Describe the coverage argument here.}
+
+\item{max_iter}{Describe the max_iter argument here.}
+
+\item{verbose}{Describe the verbose argument here.}
+
+\item{Describe}{hte tol argument here.}
 }
 \value{
 Describe the return value here.
@@ -18,7 +42,7 @@ Describe the return value here.
 Add description here.
 }
 \examples{
-# Add an example here illustrating the use of
-# perform_gsea().
+
+# Add an example here illustrating the use of perform_gsea().
 
 }

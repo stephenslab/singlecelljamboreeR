@@ -3,3 +3,5 @@
 export(hello_world)
 export(perform_gsea)
 export(rank_transform_effects_matrix)
+importFrom(Matrix,colSums)
+importFrom(susieR,susie)
