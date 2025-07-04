@@ -77,8 +77,8 @@ perform_gsea <- function (gene_signals, gene_sets, gene_set_info = NULL,
   genes        <- intersect(rownames(gene_signals),rownames(gene_sets))
   gene_signals <- gene_signals[genes,,drop = FALSE]
   gene_sets    <- gene_sets[genes,,drop = FALSE]
-  i <- match(genes,rownames(gene_signals))
-  j <- match(genes,rownames(gene_sets))
+  i            <- match(genes,rownames(gene_signals))
+  j            <- match(genes,rownames(gene_sets))
   gene_signals <- gene_signals[i,,drop = FALSE]
   gene_sets    <- gene_sets[j,,drop = FALSE]
 
@@ -86,9 +86,15 @@ perform_gsea <- function (gene_signals, gene_sets, gene_set_info = NULL,
   # more than max_size genes.
   x <- colSums(gene_sets)
   i <- which(x >= min_size & x <= max_size)
-  gene_sets <- gene_sets[,i,drop = FALSE]
+  gene_sets     <- gene_sets[,i,drop = FALSE]
+  gene_set_info <- gene_set_info[i,]
 
   # Perform a gene set enrichment analysis using susieR.
+  if (verbose) {
+    cat("Number of gene signals:",ncol(gene_signals),"\n")
+    cat("Number of gene sets:",ncol(gene_sets),"\n")
+    cat("Number of genes:",nrow(gene_sets),"\n")
+  }
   signals <- colnames(gene_signals)
   susie_fits <- vector("list",ncol(gene_signals))
   names(susie_fits) <- signals
