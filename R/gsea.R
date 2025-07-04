@@ -1,7 +1,5 @@
 #' @title Perform Gene-set Enrichment Analyses Using SuSiE
 #'
-#' @description Add description here.
-#' 
 #' @param gene_signals A matrix of signals in which rows correspond to
 #'   genes and columns correspond to the different signals. If there
 #'   is only one signal, this can be a vector.

@@ -58,7 +58,7 @@ A list containing (a) the SuSiE model fits (one for each
   signal); (b) a tibble containing the gene set enrichment results.
 }
 \description{
-Add description here.
+Perform Gene-set Enrichment Analyses Using SuSiE
 }
 \examples{
 
