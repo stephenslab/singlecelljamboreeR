@@ -31,9 +31,9 @@ perform_gsea(
 
 \item{max_iter}{Describe the max_iter argument here.}
 
-\item{verbose}{Describe the verbose argument here.}
+\item{tol}{Describe tol argument here.}
 
-\item{Describe}{hte tol argument here.}
+\item{verbose}{Describe the verbose argument here.}
 }
 \value{
 Describe the return value here.

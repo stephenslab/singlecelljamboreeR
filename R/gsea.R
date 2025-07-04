@@ -16,7 +16,7 @@
 #'
 #' @param max_iter Describe the max_iter argument here.
 #'
-#' @param Describe hte tol argument here.
+#' @param tol Describe tol argument here.
 #' 
 #' @param verbose Describe the verbose argument here.
 #'
