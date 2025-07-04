@@ -1,34 +1,54 @@
-#' @title Add Title Here
+#' @title Perform Gene-set Enrichment Analyses Using SuSiE
 #'
 #' @description Add description here.
 #' 
-#' @param gene_signals rows = genes, columns = signals
+#' @param gene_signals A matrix of signals in which rows correspond to
+#'   genes and columns correspond to the different signals. If there
+#'   is only one signal, this can be a vector.
 #'
-#' @param gene_sets rows = genes, columns = gene sets
+#' @param gene_sets A binary matrix (sparse or dense) of gene sets in
+#'   which rows correspond to genes and columns correspond to gene
+#'   sets. An entry of 1 means the gene is a member of the gene set.
 #'
-#' @param gene_set_info Describe the gene_set_info input here.
+#' @param gene_set_info Optional data frame containing additional
+#'   information about the gene sets.
 #'  
-#' @param min_size Describe the min_size input here.
+#' @param min_size Gene sets with fewer genes than this will not be
+#'     considered.
 #'
-#' @param max_size Describe the max_size input here.
+#' @param max_size Gene sets with more genes than this will not be
+#'   considered.
 #'
-#' @param top_genes Describe the top_genes argument here.
+#' @param top_genes The number of \dQuote{top genes} to include in the 
 #' 
-#' @param L Describe the L argument here.
+#' @param L The maximum number of selected gene sets; passed as the
+#'   \dQuote{L} argument to \code{\link[susieR]{susie}}.
+#'     
+#' @param coverage The \dQuote{coverage} parameter in
+#'   \code{\link[susieR]{susie}}.
 #'
-#' @param coverage Describe the coverage argument here.
+#' @param max_iter The \dQuote{max_iter} parameter in
+#'   \code{\link[susieR]{susie}}.
 #'
-#' @param max_iter Describe the max_iter argument here.
-#'
-#' @param tol Describe tol argument here.
+#' @param tol The \dQuote{tol} parameter in
+#'   \code{\link[susieR]{susie}}.
 #' 
-#' @param verbose Describe the verbose argument here.
+#' @param verbose If \code{verbose = TRUE}, print updates about 
+#'   progress of the analysis.
 #'
-#' @return Describe the return value here.
+#' @return A list containing (a) the SuSiE model fits (one for each
+#'   signal); (b) a tibble containing the gene set enrichment results.
 #'
 #' @examples
 #' 
 #' # Add an example here illustrating the use of perform_gsea().
+#' library(pathways)
+#' set.seed(1)
+#' data(gene_sets_human)
+#' i <- which(!is.na(gene_sets_human$gene_info$Ensembl))
+#' y <- gene_sets_human$gene_sets[i,"M973"] + 0.1 * rnorm(length(i))
+#' out <- perform_gsea(y,gene_sets_human$gene_sets[i,])
+#' out$selected_gene_sets
 #'
 #' @importFrom Matrix colSums
 #' @importFrom susieR susie

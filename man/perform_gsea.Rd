@@ -2,7 +2,7 @@
 % Please edit documentation in R/gsea.R
 \name{perform_gsea}
 \alias{perform_gsea}
-\title{Add Title Here}
+\title{Perform Gene-set Enrichment Analyses Using SuSiE}
 \usage{
 perform_gsea(
   gene_signals,
@@ -19,30 +19,43 @@ perform_gsea(
 )
 }
 \arguments{
-\item{gene_signals}{rows = genes, columns = signals}
+\item{gene_signals}{A matrix of signals in which rows correspond to
+genes and columns correspond to the different signals. If there
+is only one signal, this can be a vector.}
 
-\item{gene_sets}{rows = genes, columns = gene sets}
+\item{gene_sets}{A binary matrix (sparse or dense) of gene sets in
+which rows correspond to genes and columns correspond to gene
+sets. An entry of 1 means the gene is a member of the gene set.}
 
-\item{gene_set_info}{Describe the gene_set_info input here.}
+\item{gene_set_info}{Optional data frame containing additional
+information about the gene sets.}
 
-\item{min_size}{Describe the min_size input here.}
+\item{min_size}{Gene sets with fewer genes than this will not be
+considered.}
 
-\item{max_size}{Describe the max_size input here.}
+\item{max_size}{Gene sets with more genes than this will not be
+considered.}
 
-\item{top_genes}{Describe the top_genes argument here.}
+\item{top_genes}{The number of \dQuote{top genes} to include in the}
 
-\item{L}{Describe the L argument here.}
+\item{L}{The maximum number of selected gene sets; passed as the
+\dQuote{L} argument to \code{\link[susieR]{susie}}.}
 
-\item{coverage}{Describe the coverage argument here.}
+\item{coverage}{The \dQuote{coverage} parameter in
+\code{\link[susieR]{susie}}.}
 
-\item{max_iter}{Describe the max_iter argument here.}
+\item{max_iter}{The \dQuote{max_iter} parameter in
+\code{\link[susieR]{susie}}.}
 
-\item{tol}{Describe tol argument here.}
+\item{tol}{The \dQuote{tol} parameter in
+\code{\link[susieR]{susie}}.}
 
-\item{verbose}{Describe the verbose argument here.}
+\item{verbose}{If \code{verbose = TRUE}, print updates about 
+progress of the analysis.}
 }
 \value{
-Describe the return value here.
+A list containing (a) the SuSiE model fits (one for each
+  signal); (b) a tibble containing the gene set enrichment results.
 }
 \description{
 Add description here.
@@ -50,5 +63,12 @@ Add description here.
 \examples{
 
 # Add an example here illustrating the use of perform_gsea().
+library(pathways)
+set.seed(1)
+data(gene_sets_human)
+i <- which(!is.na(gene_sets_human$gene_info$Ensembl))
+y <- gene_sets_human$gene_sets[i,"M973"] + 0.1 * rnorm(length(i))
+out <- perform_gsea(y,gene_sets_human$gene_sets[i,])
+out$selected_gene_sets
 
 }
