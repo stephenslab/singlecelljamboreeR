@@ -40,12 +40,15 @@
 #' @examples
 #' 
 #' # Add an example here illustrating the use of perform_gsea().
+#' library(Matrix)
 #' library(pathways)
 #' set.seed(1)
 #' data(gene_sets_human)
 #' i <- which(!is.na(gene_sets_human$gene_info$Ensembl))
-#' y <- gene_sets_human$gene_sets[i,"M973"] + 0.1 * rnorm(length(i))
-#' out <- perform_gsea(y,gene_sets_human$gene_sets[i,])
+#' n <- length(i)
+#' y <- gene_sets_human$gene_sets[i,"M973"] + rnorm(n)/2
+#' gene_sets <- gene_sets_human$gene_sets[i,]
+#' out <- singlecelljamboreeR::perform_gsea(y,gene_sets)
 #' out$selected_gene_sets
 #'
 #' @importFrom Matrix colSums
