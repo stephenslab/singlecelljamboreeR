@@ -19,6 +19,8 @@
 #' 
 #' @export
 #'
-rank_effects <- function (effects_matrix)
-  apply(-effects_matrix,2,rank)
-
+rank_effects <- function (effects_matrix) {
+  if (!(is.matrix(effects_matrix) & is.numeric(effects_matrix)))
+    stop("Input \"effects_matrix\" should be a numeric matrix")
+  return(apply(-effects_matrix,2,rank))
+}
