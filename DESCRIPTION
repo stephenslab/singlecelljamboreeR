@@ -1,7 +1,7 @@
 Encoding: UTF-8
 Type: Package
 Package: singlecelljamboreeR
-Version: 0.1-22
+Version: 0.1-23
 Date: 2025-07-15
 Title: Data Visualizations and Other Methods for Analyzing Single-Cell Data
 Authors@R: c(person("Peter","Carbonetto",role=c("aut","cre"),
@@ -16,7 +16,10 @@ License: MIT + file LICENSE
 Imports:
     Matrix,
     tibble,
+    reshape2,
     dplyr,
+    ggplot2,
+    cowplot,
     susieR
 Suggests:
     pathways
