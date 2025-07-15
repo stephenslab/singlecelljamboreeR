@@ -30,6 +30,7 @@
 #' 
 #' @importFrom stats quantile
 #' @importFrom reshape2 melt
+#' @importFrom rlang .data
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 geom_point
@@ -61,7 +62,7 @@ effects_heatmap <- function (effects_matrix, zero_value = 0.01,
          "See help(rownames) for details.")
 
   features <- rownames(effects_matrix)
-  pdat <- data.frame(feature_name = features,stringsAsFactors = FALSE)
+  pdat <- data.frame("feature_name" = features,stringsAsFactors = FALSE)
   pdat <- cbind(pdat,effects_matrix)
   pdat <- melt(pdat,id.vars = "feature_name",variable.name = "dim",
                value.name = "value")
@@ -77,8 +78,10 @@ effects_heatmap <- function (effects_matrix, zero_value = 0.01,
     dot_colors <- c("navy","lightgray","orangered")
   else
     dot_colors <- c("slategray","lightgray","navy")
-  return(ggplot(pdat,aes(x = dim,y = feature_name,size = effect_size,
-                         fill = effect_sign)) +
+  return(ggplot(pdat,aes(x    = .data$dim,
+                         y    = .data$feature_name,
+                         size = .data$effect_size,
+                         fill = .data$effect_sign)) +
          geom_point(color = "white",shape = 21,na.rm = TRUE) +
          scale_size(range = size_range,breaks = effect_size_breaks,
                     labels = round(effect_size_breaks,digits = 3)) +
