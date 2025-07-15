@@ -3,7 +3,6 @@
 export(effects_heatmap)
 export(perform_gsea)
 export(rank_effects)
-export(rank_transform_effects_matrix)
 importFrom(Matrix,colSums)
 importFrom(cowplot,theme_cowplot)
 importFrom(dplyr,bind_cols)

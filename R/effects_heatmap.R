@@ -22,7 +22,7 @@
 #'
 #' @examples
 #' set.seed(1)
-#'X <- matrix(sample(seq(-5,5),200,replace = TRUE),20,10)
+#' X <- matrix(sample(seq(-5,5),200,replace = TRUE),20,10)
 #' rownames(X) <- paste0("row",1:20)
 #' colnames(X) <- paste0("col",1:10)
 #' effects_heatmap(X,size_range = c(2,8),font_size = 9)
@@ -66,8 +66,9 @@ effects_heatmap <- function (effects_matrix, zero_value = 0.01,
   pdat <- melt(pdat,id.vars = "feature_name",variable.name = "dim",
                value.name = "value")
   pdat <- transform(pdat,
-                    effect_size = abs(value),
-                    effect_sign = factor(sign(value),c(-1,0,1)),
+                    effect_size  = abs(value),
+                    effect_sign  = factor(sign(value),c(-1,0,1)),
+                    dim          = factor(dim,colnames(effects_matrix)),
                     feature_name = factor(feature_name,rev(features)))
   pdat$effect_size[abs(pdat$effect_size) < zero_value] <- NA
   effect_size_breaks <-
