@@ -1,10 +1,16 @@
-#' @title Add Title Here.
+#' @title Compute \dQuote{Least Extreme} Effects
 #'
-#' @description Write description of this function here.
+#' @description This function is useful for identifying
+#'   \dQuote{distinctive} effects; that is, effects that are very
+#'   different (much larger or much smaller) than the effects in the
+#'   other signals.
 #'
-#' @param effects_matrix Describe the effects matrix argument here.
+#' @param effects_matrix The input effects matrix in which rows
+#'   correspond to the samples/observations and columns correspond
+#'   to thedifferent signals.
 #'
-#' @return Describe the return value here.
+#' @return A matrix of the same dimension as the input matrix
+#'   containing the least extreme (l.e.) effects.
 #'
 #' @examples
 #' X <- rbind(c(4,0,0),

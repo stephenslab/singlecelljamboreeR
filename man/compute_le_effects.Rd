@@ -2,18 +2,24 @@
 % Please edit documentation in R/compute_le_effects.R
 \name{compute_le_effects}
 \alias{compute_le_effects}
-\title{Add Title Here.}
+\title{Compute \dQuote{Least Extreme} Effects}
 \usage{
 compute_le_effects(effects_matrix)
 }
 \arguments{
-\item{effects_matrix}{Describe the effects matrix argument here.}
+\item{effects_matrix}{The input effects matrix in which rows
+correspond to the samples/observations and columns correspond
+to thedifferent signals.}
 }
 \value{
-Describe the return value here.
+A matrix of the same dimension as the input matrix
+  containing the least extreme (l.e.) effects.
 }
 \description{
-Write description of this function here.
+This function is useful for identifying
+  \dQuote{distinctive} effects; that is, effects that are very
+  different (much larger or much smaller) than the effects in the
+  other signals.
 }
 \examples{
 X <- rbind(c(4,0,0),
