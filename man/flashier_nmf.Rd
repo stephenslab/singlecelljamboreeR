@@ -26,6 +26,7 @@ Describe the return value here.
 Add description of the function here.
 }
 \examples{
+library(flashier)
 set.seed(1)
 n <- 100
 m <- 200

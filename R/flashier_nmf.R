@@ -17,6 +17,7 @@
 #' @return Describe the return value here.
 #'
 #' @examples
+#' library(flashier)
 #' set.seed(1)
 #' n <- 100
 #' m <- 200
