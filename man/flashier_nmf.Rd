@@ -15,6 +15,8 @@ flashier_nmf(data, k, maxiter = 100, n.threads = 1, verbose = 1, ...)
 
 \item{n.threads}{Describe the n.threads input here.}
 
+\item{verbose}{Describe the verbose input here.}
+
 \item{\dots}{Additional arguments passed to ...}
 }
 \value{
@@ -24,6 +26,21 @@ Describe the return value here.
 Add description of the function here.
 }
 \examples{
-# Add a flashier_nmf example.
+set.seed(1)
+n <- 100
+m <- 200
+k <- 3
+L <- matrix(runif(n*k),n,k)
+F <- matrix(runif(m*k),m,k)
+E <- matrix(runif(n*m,0,0.01),n,m)
+X <- tcrossprod(L,F) + E
+fl <- flashier_nmf(X,k = 3)
+L_est <- ldf(fl,type = "i")$L
+F_est <- ldf(fl,type = "i")$F
+ks <- c(1,3,2)
+plot(L,L_est[,ks],pch = 20,xlab = "true",ylab = "estimated")
+abline(a = 0,b = 1,lty = "dotted",col = "magenta")
+plot(F,F_est[,ks],pch = 20,xlab = "true",ylab = "estimated")
+abline(a = 0,b = 1,lty = "dotted",col = "magenta")
 
 }

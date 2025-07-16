@@ -10,6 +10,8 @@
 #'
 #' @param n.threads Describe the n.threads input here.
 #'
+#' @param verbose Describe the verbose input here.
+#' 
 #' @param \dots Additional arguments passed to ...
 #' 
 #' @return Describe the return value here.
@@ -56,12 +58,12 @@ flashier_nmf <- function (data, k, maxiter = 100, n.threads = 1,
   # Second, get a rough rank-k NMF using NNLM.
   W0 <- cbind(init$W,matrix(runif(n*(k-1)),n,k-1))
   H0 <- rbind(init$H,matrix(runif(m*(k-1)),k-1,m))
-  nmf <- nnmf(X,k,init = list(W = W0,H = H0),loss = "mse",
+  nmf <- nnmf(data,k,init = list(W = W0,H = H0),loss = "mse",
               method = "scd",max.iter = 10,verbose = verbose,
               n.threads = n.threads)
 
   # Third, refine the rank-k NMF using flashier.
-  out <- flash_init(X,...)
+  out <- flash_init(data,...)
   out <- flash_factors_init(out,list(nmf$W,t(nmf$H)),ebnm_point_exponential)
   out <- flash_backfit(out,extrapolate = FALSE,maxiter = maxiter,
                        verbose = verbose)
