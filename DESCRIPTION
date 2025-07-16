@@ -1,8 +1,8 @@
 Encoding: UTF-8
 Type: Package
 Package: singlecelljamboreeR
-Version: 0.1-25
-Date: 2025-07-15
+Version: 0.1-26
+Date: 2025-07-16
 Title: Data Visualizations and Other Methods for Analyzing Single-Cell Data
 Authors@R: c(person("Peter","Carbonetto",role=c("aut","cre"),
                     email="peter.carbonetto@gmail.com"),
@@ -15,18 +15,25 @@ Description: Implements methods and data visualizations supporting
 License: MIT + file LICENSE
 Imports:
     Matrix,
+    stats,
     tibble,
     reshape2,
     dplyr,
     rlang,
     ggplot2,
     cowplot,
-    susieR
+    susieR,
+    NNLM,
+    ebnm,
+    flashier
 Suggests:
     pathways
 Remotes:
     stephenslab/susieR,
-    stephenslab/pathways
+    stephenslab/pathways,
+    stephenslab/ebnm,
+    willwerscheid/flashier,
+    linxihui/NNLM
 LazyData: true
 NeedsCompilation: no
 RoxygenNote: 7.3.1
