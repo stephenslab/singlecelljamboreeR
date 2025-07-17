@@ -6,8 +6,9 @@
 #'   obtain a \dQuote{good} initialization using the NNLM package,
 #'   then use this initialization to fit an NMF using flashier.
 #' 
-#' @param data The data matrix. This cannot be a sparse matrix because
-#'   NNLM does not accept sparse matrices.
+#' @param data The data matrix. It may be a sparse or dense matrix,
+#'   however the initialization step will convert the sparse matrix
+#'   to a dense matrix (and will issue a warning when doing so).
 #'
 #' @param k The numbe of factors in the matrix factorization.
 #'
@@ -62,14 +63,21 @@ flashier_nmf <- function (data, k, maxiter = 100, n.threads = 1,
   m <- ncol(data)
 
   # First, get a rough rank-1 NMF using NNLM.
-  init <- nnmf(data,k = 1,loss = "mse",method = "scd",
+  if (is.matrix(data)) {
+    data_dense <- data
+  } else {
+    warning("Converting data to a (dense) matrix; this dense matrix ",
+            "may exceed memory limits")
+    data_dense <- as.matrix(data)
+  }
+  init <- nnmf(data_dense,k = 1,loss = "mse",method = "scd",
                max.iter = 10,verbose = verbose,
                n.threads = n.threads)
 
   # Second, get a rough rank-k NMF using NNLM.
   W0 <- cbind(init$W,matrix(runif(n*(k-1)),n,k-1))
   H0 <- rbind(init$H,matrix(runif(m*(k-1)),k-1,m))
-  nmf <- nnmf(data,k,init = list(W = W0,H = H0),loss = "mse",
+  nmf <- nnmf(data_dense,k,init = list(W = W0,H = H0),loss = "mse",
               method = "scd",max.iter = 10,verbose = verbose,
               n.threads = n.threads)
 

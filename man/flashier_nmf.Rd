@@ -7,8 +7,9 @@
 flashier_nmf(data, k, maxiter = 100, n.threads = 1, verbose = 1, ...)
 }
 \arguments{
-\item{data}{The data matrix. This cannot be a sparse matrix because
-NNLM does not accept sparse matrices.}
+\item{data}{The data matrix. It may be a sparse or dense matrix,
+however the initialization step will convert the sparse matrix
+to a dense matrix (and will issue a warning when doing so).}
 
 \item{k}{The numbe of factors in the matrix factorization.}
 
