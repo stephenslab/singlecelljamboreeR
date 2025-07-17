@@ -46,6 +46,7 @@
 #' plot(F,F_est[,ks],pch = 20,xlab = "true",ylab = "estimated")
 #' abline(a = 0,b = 1,lty = "dotted",col = "magenta")
 #'
+#' @import Matrix
 #' @importFrom stats runif
 #' @importFrom NNLM nnmf
 #' @importFrom ebnm ebnm_point_exponential
