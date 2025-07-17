@@ -1,20 +1,30 @@
-#' @title Title Goes Here.
+#' @title Fit flashier NMF model by Initializing with NNLM
 #'
-#' @description Add description of the function here.
-#'
-#' @param data Describe the data input here.
-#'
-#' @param k Describe the k input here.
-#'
-#' @param maxiter Describe the maxiter input here.
-#'
-#' @param n.threads Describe the n.threads input here.
-#'
-#' @param verbose Describe the verbose input here.
+#' @description Since the \dQuote{greedy} initialization approach
+#'   implemented in flashier does not seem to work well in some
+#'   cases, this function uses a different initialization strategy:
+#'   obtain a \dQuote{good} initialization using the NNLM package,
+#'   then use this initialization to fit an NMF using flashier.
 #' 
-#' @param \dots Additional arguments passed to ...
+#' @param data The data matrix. This cannot be a sparse matrix because
+#'   NNLM does not accept sparse matrices.
+#'
+#' @param k The numbe of factors in the matrix factorization.
+#'
+#' @param maxiter The maximum number of backfitting iterations in each
+#'   of the two calls to \code{\link[flashier]{flash_backfit}}.
+#'
+#' @param n.threads The number of threads/CPUs used in
+#'   \code{\link[NNLM]{nnmf}}.
+#'
+#' @param verbose This is the setting "verbose" for both the
+#'   \code{\link[NNLM]{nnmf}} and
+#'   \code{\link[flashier]{flash_backfit}} calls.
 #' 
-#' @return Describe the return value here.
+#' @param \dots Additional arguments passed to
+#'   \code{\link[flashier]{flash_init}}.
+#' 
+#' @return A \sQuote{flash} object.
 #'
 #' @examples
 #' library(flashier)

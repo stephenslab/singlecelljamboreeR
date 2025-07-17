@@ -2,28 +2,38 @@
 % Please edit documentation in R/flashier_nmf.R
 \name{flashier_nmf}
 \alias{flashier_nmf}
-\title{Title Goes Here.}
+\title{Fit flashier NMF model by Initializing with NNLM}
 \usage{
 flashier_nmf(data, k, maxiter = 100, n.threads = 1, verbose = 1, ...)
 }
 \arguments{
-\item{data}{Describe the data input here.}
+\item{data}{The data matrix. This cannot be a sparse matrix because
+NNLM does not accept sparse matrices.}
 
-\item{k}{Describe the k input here.}
+\item{k}{The numbe of factors in the matrix factorization.}
 
-\item{maxiter}{Describe the maxiter input here.}
+\item{maxiter}{The maximum number of backfitting iterations in each
+of the two calls to \code{\link[flashier]{flash_backfit}}.}
 
-\item{n.threads}{Describe the n.threads input here.}
+\item{n.threads}{The number of threads/CPUs used in
+\code{\link[NNLM]{nnmf}}.}
 
-\item{verbose}{Describe the verbose input here.}
+\item{verbose}{This is the setting "verbose" for both the
+\code{\link[NNLM]{nnmf}} and
+\code{\link[flashier]{flash_backfit}} calls.}
 
-\item{\dots}{Additional arguments passed to ...}
+\item{\dots}{Additional arguments passed to
+\code{\link[flashier]{flash_init}}.}
 }
 \value{
-Describe the return value here.
+A \sQuote{flash} object.
 }
 \description{
-Add description of the function here.
+Since the \dQuote{greedy} initialization approach
+  implemented in flashier does not seem to work well in some
+  cases, this function uses a different initialization strategy:
+  obtain a \dQuote{good} initialization using the NNLM package,
+  then use this initialization to fit an NMF using flashier.
 }
 \examples{
 library(flashier)
