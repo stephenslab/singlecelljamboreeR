@@ -4,24 +4,48 @@
 \alias{flashier_nmf}
 \title{Fit flashier NMF model by Initializing with NNLM}
 \usage{
-flashier_nmf(data, k, maxiter = 100, n.threads = 1, verbose = 1, ...)
+flashier_nmf(
+  data,
+  k,
+  greedy_init = TRUE,
+  max_greedy_cycles = 10,
+  maxiter = 100,
+  n.threads = 1,
+  verbose = 1,
+  ...
+)
 }
 \arguments{
-\item{data}{The data matrix. It may be a sparse or dense matrix,
-however the initialization step will convert the sparse matrix
-to a dense matrix (and will issue a warning when doing so).}
+\item{data}{The data matrix. It may be a sparse or dense matrix.
+However, if NNLM is used (\code{greedy_init = FALSE}), the
+initialization step will convert the sparse matrix to a dense
+matrix (and will issue a warning when doing so).}
 
-\item{k}{The numbe of factors in the matrix factorization.}
+\item{k}{The desired number of factors in the matrix
+factorization.}
+
+\item{greedy_init}{If \code{greedy_init = TRUE}, use the
+\dQuote{greedy initialization} strategy, which performs several
+rounds of greedy initialization followed by backfitting until
+the desired number of factors is reached. If \code{greedy_init
+= FALSE}, use instead a \dQuote{random initialization}
+strategy, which uses NNLM to search for a good initialization,
+then runs the flashier backfitting to improve on this
+initialization.}
+
+\item{max_greedy_cycles}{The maximum number of cycles of greedy
+initialization to perform. This is only a safeguard to avoid
+the situation where it runs for forever.}
 
 \item{maxiter}{The maximum number of backfitting iterations in each
-of the two calls to \code{\link[flashier]{flash_backfit}}.}
+of the calls to \code{\link[flashier]{flash_backfit}}.}
 
 \item{n.threads}{The number of threads/CPUs used in
-\code{\link[NNLM]{nnmf}}.}
+\code{\link[NNLM]{nnmf}} (if it is used).}
 
-\item{verbose}{This is the setting "verbose" for both the
-\code{\link[NNLM]{nnmf}} and
-\code{\link[flashier]{flash_backfit}} calls.}
+\item{verbose}{This is the \dQuote{verbose} setting for both
+\code{\link[flashier]{flash_backfit}} and, if called,
+\code{\link[NNLM]{nnmf}}.}
 
 \item{\dots}{Additional arguments passed to
 \code{\link[flashier]{flash_init}}.}
@@ -31,10 +55,18 @@ A \sQuote{flash} object.
 }
 \description{
 Since the \dQuote{greedy} initialization approach
-  implemented in flashier does not seem to work well in some
-  cases, this function uses a different initialization strategy:
-  obtain a \dQuote{good} initialization using the NNLM package,
-  then use this initialization to fit an NMF using flashier.
+  implemented in flashier does not always work well for
+  non-negative matrix factorization (NMF), here we implement two
+  other strategies that will often work better: (1) cycle between
+  several rounds of greedy initialization followed by backfitting
+  to achieve the desired number of factors; or (2) get a
+  \dQuote{good} initialization using the NNLM package, then use
+  this good initialization to fit an NMF using
+  flashier. Sometimes both (1) and (2) will produce similar
+  results, and in other cases the results might be quite
+  different. The first strategy is implemented with
+  \code{greedy_init = TRUE}; the second strategy is implemented
+  with \code{greedy_init = FALSE}.
 }
 \examples{
 library(flashier)
