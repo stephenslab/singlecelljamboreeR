@@ -28,10 +28,8 @@ factorization.}
 \dQuote{greedy initialization} strategy, which performs several
 rounds of greedy initialization followed by backfitting until
 the desired number of factors is reached. If \code{greedy_init
-= FALSE}, use instead a \dQuote{random initialization}
-strategy, which uses NNLM to search for a good initialization,
-then runs the flashier backfitting to improve on this
-initialization.}
+= FALSE}, use NNLM to search for a good initialization, then
+run the flashier backfitting to improve on this initialization.}
 
 \item{max_greedy_cycles}{The maximum number of cycles of greedy
 initialization to perform. This is only a safeguard to avoid

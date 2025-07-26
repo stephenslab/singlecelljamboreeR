@@ -26,10 +26,8 @@
 #'   \dQuote{greedy initialization} strategy, which performs several
 #'   rounds of greedy initialization followed by backfitting until
 #'   the desired number of factors is reached. If \code{greedy_init
-#'   = FALSE}, use instead a \dQuote{random initialization}
-#'   strategy, which uses NNLM to search for a good initialization,
-#'   then runs the flashier backfitting to improve on this
-#'   initialization.
+#'   = FALSE}, use NNLM to search for a good initialization, then
+#'   run the flashier backfitting to improve on this initialization.
 #'
 #' @param max_greedy_cycles The maximum number of cycles of greedy
 #'   initialization to perform. This is only a safeguard to avoid
@@ -71,7 +69,6 @@
 #'
 #' @import Matrix
 #' @importFrom stats runif
-#' @importFrom NNLM nnmf
 #' @importFrom ebnm ebnm_point_exponential
 #' @importFrom flashier flash_init
 #' @importFrom flashier flash_factors_init
@@ -87,31 +84,50 @@ flashier_nmf <- function (data, k, greedy_init = TRUE,
   n <- nrow(data)
   m <- ncol(data)
 
-  # First, get a rough rank-1 NMF using NNLM.
-  if (is.matrix(data)) {
-    data_dense <- data
+  if (greedy_init) {
+
+    # USE GREEDY INITIALIZATION
+    # -------------------------
+    #
+    # TO DO.
+    #
   } else {
-    warning("Converting data to a (dense) matrix; this dense matrix ",
-            "may exceed memory limits")
-    data_dense <- as.matrix(data)
+
+    # INITIALIZE USING NNLM
+    # ---------------------
+    #
+    # TO DO: Check that NNLM is installed.
+    # 
+ 
+    # First, get a rough rank-1 NMF using NNLM.
+    if (is.matrix(data)) {
+      data_dense <- data
+    } else {
+      warning("Converting data to a (dense) matrix; this dense matrix ",
+              "may exceed memory limits")
+      data_dense <- as.matrix(data)
+    }
+  
+
+    # Second, get a rough rank-k NMF using NNLM.
+    init <- NNLM::nnmf(data_dense,k = 1,loss = "mse",method = "scd",
+                       max.iter = 10,verbose = verbose,
+                       n.threads = n.threads)
+    W0 <- cbind(init$W,matrix(runif(n*(k-1)),n,k-1))
+    H0 <- rbind(init$H,matrix(runif(m*(k-1)),k-1,m))
+    nmf <- NNLM::nnmf(data_dense,k,init = list(W = W0,H = H0),loss = "mse",
+                      method = "scd",max.iter = 10,verbose = verbose,
+                      n.threads = n.threads)
+
+    # Third, refine the rank-k NMF using flashier.
+    out <- flash_init(data,...)
+    out <- flash_factors_init(out,list(nmf$W,t(nmf$H)),
+                              ebnm_point_exponential)
+    out <- flash_backfit(out,extrapolate = FALSE,maxiter = maxiter,
+                         verbose = verbose)
+    out <- flash_backfit(out,extrapolate = TRUE,maxiter = maxiter,
+                         verbose = verbose)
   }
-  init <- nnmf(data_dense,k = 1,loss = "mse",method = "scd",
-               max.iter = 10,verbose = verbose,
-               n.threads = n.threads)
 
-  # Second, get a rough rank-k NMF using NNLM.
-  W0 <- cbind(init$W,matrix(runif(n*(k-1)),n,k-1))
-  H0 <- rbind(init$H,matrix(runif(m*(k-1)),k-1,m))
-  nmf <- nnmf(data_dense,k,init = list(W = W0,H = H0),loss = "mse",
-              method = "scd",max.iter = 10,verbose = verbose,
-              n.threads = n.threads)
-
-  # Third, refine the rank-k NMF using flashier.
-  out <- flash_init(data,...)
-  out <- flash_factors_init(out,list(nmf$W,t(nmf$H)),ebnm_point_exponential)
-  out <- flash_backfit(out,extrapolate = FALSE,maxiter = maxiter,
-                       verbose = verbose)
-  out <- flash_backfit(out,extrapolate = TRUE,maxiter = maxiter,
-                       verbose = verbose)
   return(out)
 }

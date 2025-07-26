@@ -23,12 +23,12 @@ Imports:
     ggplot2,
     cowplot,
     susieR,
-    NNLM,
     ebnm,
     flashier
 Suggests:
     graphics,
-    pathways
+    pathways,
+    NNLM
 Remotes:
     stephenslab/susieR,
     stephenslab/pathways,
