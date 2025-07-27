@@ -76,7 +76,7 @@ L <- matrix(runif(n*k),n,k)
 F <- matrix(runif(m*k),m,k)
 E <- matrix(runif(n*m,0,0.01),n,m)
 X <- tcrossprod(L,F) + E
-fl <- flashier_nmf(X,k = 3)
+fl <- flashier_nmf(X,k = 3,greedy_init = FALSE)
 L_est <- ldf(fl,type = "i")$L
 F_est <- ldf(fl,type = "i")$F
 ks <- c(1,3,2)

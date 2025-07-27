@@ -58,7 +58,7 @@
 #' F <- matrix(runif(m*k),m,k)
 #' E <- matrix(runif(n*m,0,0.01),n,m)
 #' X <- tcrossprod(L,F) + E
-#' fl <- flashier_nmf(X,k = 3)
+#' fl <- flashier_nmf(X,k = 3,greedy_init = FALSE)
 #' L_est <- ldf(fl,type = "i")$L
 #' F_est <- ldf(fl,type = "i")$F
 #' ks <- c(1,3,2)
@@ -88,16 +88,22 @@ flashier_nmf <- function (data, k, greedy_init = TRUE,
 
     # USE GREEDY INITIALIZATION
     # -------------------------
-    #
+    # First, run flashier with no back-fitting.
+    out <- flash(data,ebnm_fn = ebnm_point_exponential,greedy_Kmax = k,
+                 backfit = FALSE,verbose = verbose,...)
+
+    # Second, cycle through several iterations of back-fitting
+    # followed by greedy initialization until we obtain k factors.
+    # 
     # TO DO.
     #
   } else {
 
     # INITIALIZE USING NNLM
     # ---------------------
-    #
-    # TO DO: Check that NNLM is installed.
-    # 
+    if (!requireNamespace("NNLM",quietly = TRUE))
+      stop("flashier_nmf with greedy_init = FALSE requires installation ",
+           "of package NNLM")
  
     # First, get a rough rank-1 NMF using NNLM.
     if (is.matrix(data)) {
@@ -107,7 +113,6 @@ flashier_nmf <- function (data, k, greedy_init = TRUE,
               "may exceed memory limits")
       data_dense <- as.matrix(data)
     }
-  
 
     # Second, get a rough rank-k NMF using NNLM.
     init <- NNLM::nnmf(data_dense,k = 1,loss = "mse",method = "scd",
