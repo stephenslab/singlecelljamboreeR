@@ -70,8 +70,10 @@
 #' @import Matrix
 #' @importFrom stats runif
 #' @importFrom ebnm ebnm_point_exponential
+#' @importFrom flashier flash
 #' @importFrom flashier flash_init
 #' @importFrom flashier flash_factors_init
+#' @importFrom flashier flash_greedy
 #' @importFrom flashier flash_backfit
 #' 
 #' @export
@@ -90,13 +92,22 @@ flashier_nmf <- function (data, k, greedy_init = TRUE,
     # -------------------------
     # First, run flashier with no back-fitting.
     out <- flash(data,ebnm_fn = ebnm_point_exponential,greedy_Kmax = k,
-                 backfit = FALSE,verbose = verbose,...)
+                 backfit = FALSE,verbose = verbose,...) 
 
     # Second, cycle through several iterations of back-fitting
     # followed by greedy initialization until we obtain k factors.
-    # 
-    # TO DO.
-    #
+    while (out$n_factors < k) {
+      out <- flash_backfit(out,extrapolate = FALSE,maxiter = maxiter,
+                           verbose = verbose)
+      out <- flash_greedy(out,ebnm_fn = ebnm_point_exponential,Kmax = k,
+                          extrapolate = FALSE,verbose = verbose)      
+    }
+
+    # Do one final round of back-fitting.
+    out <- flash_backfit(out,extrapolate = FALSE,maxiter = maxiter,
+                         verbose = verbose)
+    out <- flash_backfit(out,extrapolate = TRUE,maxiter = maxiter,
+                         verbose = verbose)
   } else {
 
     # INITIALIZE USING NNLM
