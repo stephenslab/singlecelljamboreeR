@@ -35,8 +35,9 @@ run the flashier backfitting to improve on this initialization.}
 initialization to perform. This is only a safeguard to avoid
 the situation where it runs for forever.}
 
-\item{maxiter}{The maximum number of backfitting iterations in each
-of the calls to \code{\link[flashier]{flash_backfit}}.}
+\item{maxiter}{The maximum number of iterations in each
+of the calls to \code{\link[flashier]{flash_greedy}} and
+\code{\link[flashier]{flash_backfit}}.}
 
 \item{n.threads}{The number of threads/CPUs used in
 \code{\link[NNLM]{nnmf}} (if it is used).}
@@ -68,6 +69,8 @@ Since the \dQuote{greedy} initialization approach
 }
 \examples{
 library(flashier)
+
+# Simulate a data set.
 set.seed(1)
 n <- 100
 m <- 200
@@ -76,7 +79,19 @@ L <- matrix(runif(n*k),n,k)
 F <- matrix(runif(m*k),m,k)
 E <- matrix(runif(n*m,0,0.01),n,m)
 X <- tcrossprod(L,F) + E
+
+# Use the NNLM initialization.
 fl <- flashier_nmf(X,k = 3,greedy_init = FALSE)
+L_est <- ldf(fl,type = "i")$L
+F_est <- ldf(fl,type = "i")$F
+ks <- c(1,3,2)
+plot(L,L_est[,ks],pch = 20,xlab = "true",ylab = "estimated")
+abline(a = 0,b = 1,lty = "dotted",col = "magenta")
+plot(F,F_est[,ks],pch = 20,xlab = "true",ylab = "estimated")
+abline(a = 0,b = 1,lty = "dotted",col = "magenta")
+
+# Use the greedy initialization.
+fl <- flashier_nmf(X,k = 3,greedy_init = TRUE)
 L_est <- ldf(fl,type = "i")$L
 F_est <- ldf(fl,type = "i")$F
 ks <- c(1,3,2)
