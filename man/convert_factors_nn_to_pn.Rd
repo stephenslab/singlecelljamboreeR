@@ -23,5 +23,15 @@ positive/negative factors.}
 A \sQuote{flash} object.
 }
 \description{
-Description goes here.
+Assuming the input flash model has non-negative
+  factors with point-exponential priors, this function creates a
+  new flash model in which selected factors have
+  point-exponential priors for the columns of L and point-Laplace
+  priors for the corresponding columns of F, which allows for the
+  parameter estimates to be either positive or negative. Note
+  that L and F in the new flash model are initialized to the
+  estimates from the input flash model, so initially they are all
+  non-negative; a subsequent call to
+  \code{\link[flashier]{flash_backfit}} is needed to actually
+  produce negative values.
 }
