@@ -2,21 +2,25 @@
 % Please edit documentation in R/convert_factors_nn_to_pn.R
 \name{convert_factors_nn_to_pn}
 \alias{convert_factors_nn_to_pn}
-\title{Title Goes Here}
+\title{Convert Some Non-Negative Factors to Positive/Negative Factors}
 \usage{
-convert_factors_nn_to_pn(fl, kset, dat, ...)
+convert_factors_nn_to_pn(fl, kset, data, ...)
 }
 \arguments{
-\item{fl}{Describe the fl input argument here.}
+\item{fl}{A flashier fit with non-negative factors, such as an
+output from a call to \link{flashier_nmf}.}
 
-\item{kset}{Describe the kset input argument here.}
+\item{kset}{The indices of the non-negative factors to convert to
+positive/negative factors.}
 
-\item{dat}{Describe the dat input argument here.}
+\item{data}{The data matrix passed as an input to
+\code{\link[flashier]{flash_init}}.}
 
-\item{\dots}{Additional parameters.}
+\item{\dots}{Additional arguments passed to
+\code{\link[flashier]{flash_init}}.}
 }
 \value{
-Describe the return value here.
+A \sQuote{flash} object.
 }
 \description{
 Description goes here.

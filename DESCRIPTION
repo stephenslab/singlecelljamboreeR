@@ -1,7 +1,7 @@
 Encoding: UTF-8
 Type: Package
 Package: singlecelljamboreeR
-Version: 0.1-39
+Version: 0.1-40
 Date: 2025-08-15
 Title: Data Visualizations and Other Methods for Analyzing Single-Cell Data
 Authors@R: c(person("Peter","Carbonetto",role=c("aut","cre"),

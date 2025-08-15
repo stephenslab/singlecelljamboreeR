@@ -1,16 +1,20 @@
-#' @title Title Goes Here
+#' @title Convert Some Non-Negative Factors to Positive/Negative Factors
 #'
 #' @description Description goes here.
 #'
-#' @param fl Describe the fl input argument here.
+#' @param fl A flashier fit with non-negative factors, such as an
+#'   output from a call to \link{flashier_nmf}.
 #'
-#' @param kset Describe the kset input argument here.
+#' @param kset The indices of the non-negative factors to convert to
+#'   positive/negative factors. 
 #'
-#' @param dat Describe the dat input argument here.
+#' @param data The data matrix passed as an input to
+#'   \code{\link[flashier]{flash_init}}.
 #'
-#' @param \dots Additional parameters.
+#' @param \dots Additional arguments passed to
+#'   \code{\link[flashier]{flash_init}}.
 #' 
-#' @return Describe the return value here.
+#' @return A \sQuote{flash} object.
 #'
 #' @importFrom ebnm ebnm_point_exponential
 #' @importFrom ebnm ebnm_point_laplace
@@ -19,10 +23,9 @@
 #' 
 #' @export
 #'
-convert_factors_nn_to_pn <- function (fl, kset, dat, ...) {
+convert_factors_nn_to_pn <- function (fl, kset, data, ...) {
+  out <- flash_init(data,...)
   k <- fl$n_factors
-  out <- flash_init(dat,...)
-
   for (i in 1:k) {
     l <- fl$L_pm[,i,drop = FALSE]
     f <- fl$F_pm[,i,drop = FALSE]
